@@ -17,6 +17,7 @@
 				text : '환영합니다!!'
 			})
 		}
+		
 		$('#logout').on('click',function(){
 			Swal.fire({
 				  title: '로그아웃 하시겠습니까?',

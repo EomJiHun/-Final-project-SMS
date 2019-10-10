@@ -174,6 +174,7 @@ hr {
 													</c:otherwise>
 												</c:choose>
 											</div>
+
 											<div id="me_2" style="margin-left: 10px; width: 160px;">
 												<span class="mento_name"
 													style="font-size: small; width: 90px;">${mee.mentor_name}</span>

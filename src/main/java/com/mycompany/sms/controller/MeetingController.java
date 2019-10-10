@@ -99,7 +99,6 @@ public class MeetingController {
 	@RequestMapping("/list.do")
 	public ModelAndView mettinglist(ModelAndView mav, HttpSession session, PageDTO pv) {
 		String user_id = null;
-		String date = null;
 		List<MeetingDTO> membercheck = new ArrayList<MeetingDTO>();
 		int totalRecord = service.countProcess();
 		if (session.getAttribute("user_id") != null) {

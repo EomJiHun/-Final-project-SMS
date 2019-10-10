@@ -77,8 +77,9 @@
 						</div>
 						<div class="post-body">
 							<div class="post-meta" style="text-align:right;">
-								<span class="date" style="text-align: right;">${date }</span>
+								Date: <span class="date" style="text-align: right; margin-right: 12px">${date }</span>
 							</div>
+							<hr/>
 							<h3 class="post-title"
 								style="padding-left: 10px; padding-right: 10px">
 								<a href="${path }" style="text-decoration: none; font-family: 'Noto Sans KR', sans-serif;">${dto.essay_subject }</a>

@@ -219,9 +219,9 @@
 							<div class="media-left">
 								<c:choose>
 									<c:when test="${not empty mentorDTO.mentor_image }">
-										<img class="media-object"
-											src="/sms/temp/${mentorDTO.mentor_image}" alt=""
-											style="height: 120px">
+										<a href="mentor_view.do?num=${mentorDTO.mentor_num}" style="text-decoration: none;">
+                             				 <img class="media-object" src="/sms/temp/${mentorDTO.mentor_image}" alt="" style="height: 120px">
+                           			   </a>
 									</c:when>
 									<c:otherwise>
 										<img class="media-object" src="./img/userpicture.png" alt=""

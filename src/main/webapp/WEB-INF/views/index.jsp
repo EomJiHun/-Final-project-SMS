@@ -261,13 +261,13 @@ hr {
 				<c:if test="${not empty sessionScope.user_id}">
 					<div class="aside-widget">
 						<div class="section-title">
-							<h2>나의 팔로워</h2>		
+							<h2>${userDTO.user_name }의 팔로잉</h2>
 						</div>
 						<div class="category-widget">
 							<c:if test="${not empty sessionScope.user_id}">
 								<p>
 									<c:choose>
-										<c:when test="${not empty mCheck }">
+										<c:when test="${mCheck==1 }">
 											<c:forEach items="${mymentorInfo}" var="mlist" begin="1"
 												end="3">
 												<div id="follower">
@@ -300,7 +300,7 @@ hr {
 									</c:choose>
 								</p>
 							</c:if>
-							<a style="float:right" href="myPage.do">더 보기..</a>	
+							<a style="float: right" href="myPage.do">더 보기..</a>
 						</div>
 						<!-- /catagories -->
 					</div>
@@ -369,12 +369,24 @@ hr {
 												style="display: block; font-size: small; border: 0;">${mee.mentor_co},
 												${mee.mentor_dept}</span>
 										</div>
-										<div class="text_num text-center">
-											<span style="margin-left: 5px; margin-right: 5px;"> <i
-												class="fa fa-users" aria-hidden="true"></i>모집인원
-												:${men.meeting_recruitment }명
-											</span>
-										</div>
+										<c:choose>
+											<c:when test="${men.memberCheck==0}">
+												<div class="text_num text-center"
+													style="background-color: #ef3730; color: white; border: none">
+													<span style="margin-left: 5px; margin-right: 5px;">
+														<i class="fa fa-users" aria-hidden="true"></i> 마감 되었습니다
+													</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="text_num text-center">
+													<span style="margin-left: 5px; margin-right: 5px;">
+														<i class="fa fa-users" aria-hidden="true"></i> 모집인원
+														:${men.meeting_recruitment }명
+													</span>
+												</div>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</a>
 				</div>

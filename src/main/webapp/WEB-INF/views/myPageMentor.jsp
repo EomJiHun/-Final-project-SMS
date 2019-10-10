@@ -157,34 +157,68 @@
 	<div class="section" style="height: 1000px;">
 		<div id="all">
 			<div id="left">
-				<div id="meetingwrap">
-					<h2 class="title">
-						<i class="fa fa-meetup" aria-hidden="true"></i> 내가 만든 모임
-					</h2>
-					<hr />
-					<div id="meeting"
-						style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
-						<ul>
-							<c:forEach var="meeting" items="${meetingInfoList }"
-								varStatus="number">
-								<c:url var="mpath" value="detail.do">
-									<c:param name="meeting_num" value="${ meeting.meeting_num}" />
-									<c:param name="mentor_num" value="${meeting.mentor_num }" />
-								</c:url>
-								<span
-									style="float: left; margin-left: 40px; margin-top: 20px; font-size: 20px;">${number.count }</span>
-								<li
-									style="height: 50px; line-height: 50px; vertical-align: middle;"><a
-									href="${mpath }"><img
-										src="/sms/temp/${meeting.meeting_img_name }" class="mimg"
-										style="margin-left: 5%;" /></a><a href="${ mpath}"
-									style="margin-left: 10px;">모임명: ${ meeting.meeting_title}</a></li>
-								<hr />
-							</c:forEach>
-						</ul>
-					</div>
-					<!-- meeting -->
-				</div>
+				<c:choose>
+					<c:when test="${mCheck==1 }">
+						<div id="meetingwrap">
+							<h2 class="title">
+								<i class="fa fa-meetup" aria-hidden="true"></i> 내가 만든 모임
+							</h2>
+							<hr />
+							<div id="meeting"
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px;padding: 10px;">
+								<ul>
+									<c:forEach var="meeting" items="${meetingInfoList }"
+										varStatus="number">
+										<c:url var="mpath" value="detail.do">
+											<c:param name="meeting_num" value="${ meeting.meeting_num}" />
+											<c:param name="mentor_num" value="${meeting.mentor_num }" />
+										</c:url>
+										<span
+											style="float: left; margin-left: 40px; margin-top: 20px; font-size: 20px;">${number.count }</span>
+										<li
+											style="height: 50px; line-height: 50px; vertical-align: middle;"><a
+											href="${mpath }"><img
+												src="/sms/temp/${meeting.meeting_img_name }" class="mimg"
+												style="margin-left: 5%;" /></a><a href="${ mpath}"
+											style="margin-left: 10px;">모임명: ${ meeting.meeting_title}</a></li>
+										<hr />
+									</c:forEach>
+								</ul>
+							</div>
+							<!-- meeting -->
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div id="meetingwrap">
+							<h2 class="title">
+								<i class="fa fa-meetup" aria-hidden="true"></i> 내가 참여한 모임
+							</h2>
+							<hr />
+							<div id="meeting"
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px;padding: 10px;">
+								<ul>
+									<c:forEach var="meeting" items="${meetingInfoList }"
+										varStatus="number">
+										<c:url var="mpath" value="detail.do">
+											<c:param name="meeting_num" value="${ meeting.meeting_num}" />
+											<c:param name="mentor_num" value="${meeting.mentor_num }" />
+										</c:url>
+										<span
+											style="float: left; margin-left: 40px; margin-top: 20px; font-size: 20px;">${number.count }</span>
+										<li
+											style="height: 50px; line-height: 50px; vertical-align: middle;"><a
+											href="${mpath }"><img
+												src="/sms/temp/${meeting.meeting_img_name }" class="mimg"
+												style="margin-left: 5%;" /></a><a href="${ mpath}"
+											style="margin-left: 10px;">모임명: ${ meeting.meeting_title}</a></li>
+										<hr />
+									</c:forEach>
+								</ul>
+							</div>
+							<!-- meeting -->
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<!-- meetingwrap -->
 
 
@@ -197,7 +231,7 @@
 							</h2>
 							<hr />
 							<div id="essay"
-								style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px;padding: 10px;">
 								<ul>
 									<c:forEach var="mn" items="${eassayInfoList}"
 										varStatus="number">
@@ -232,77 +266,81 @@
 			</div>
 			<!-- left -->
 			<c:choose>
-			<c:when test="${not empty mCheck }">
-			<div id="right">
-				<div id="followwrap">
-					<h2 class="title">
-						<i class="fa fa-users" aria-hidden="true"></i> ${userDTO.user_name }의
-						팔로워
-					</h2>
-					<hr />
-					<div id="follow"
-						style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
-						<ul>
-							<c:forEach items="${mymentorInfo}" var="mlist" begin="1">
-								<li
-									style="height: 30px; line-height: 50px; vertical-align: middle;"><a
-									href="mentor_view.do?num=${mlist.mentor_num}"
-									style="text-decoration: none;"></a> <c:choose>
-										<c:when test="${not empty mlist.mentor_image }">
-											<img src="/sms/temp/${mlist.mentor_image }" class="fimg"
-												style="margin-left: 5%; border-radius: 50%" />
-										</c:when>
-										<c:otherwise>
-											<img src="./img/userpicture.png" class="fimg"
-												style="margin-left: 5%; border-radius: 50%" />
-										</c:otherwise>
-									</c:choose> 
-									${mlist.mentor_name}&nbsp; <small>멘토</small></li>
-								<hr />
-							</c:forEach>
-						</ul>
+				<c:when test="${mCheck==1 }">
+					<div id="right">
+						<div id="followwrap">
+							<h2 class="title">
+								<i class="fa fa-users" aria-hidden="true"></i>
+								${userDTO.user_name }의 팔로잉
+							</h2>
+							<hr />
+							<div id="follow"
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px;padding: 10px;">
+								<ul>
+									<c:forEach items="${mymentorInfo}" var="mlist" begin="1">
+										<li
+											style="height: 30px; line-height: 50px; vertical-align: middle;"><a
+											href="mentor_view.do?num=${mlist.mentor_num}"
+											style="text-decoration: none;"></a> <c:choose>
+												<c:when test="${not empty mlist.mentor_image }">
+													<img src="/sms/temp/${mlist.mentor_image }" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+													<a href="mentor_view.do?num=${mlist.mentor_num}"
+														style="text-decoration: none; margin-left: 5px; font-size: large; width: 300px;">
+														${mlist.mentor_name}</a>
+												</c:when>
+												<c:otherwise>
+													<img src="./img/userpicture.png" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+													<a href="mentor_view.do?num=${mlist.mentor_num}"
+														style="text-decoration: none; margin-left: 5px; font-size: large; width: 300px;">
+														${mlist.mentor_name}</a>
+												</c:otherwise>
+											</c:choose>&nbsp; <small>멘토</small></li>
+										<hr />
+									</c:forEach>
+								</ul>
+							</div>
+							<!-- follow -->
+						</div>
+						<!-- followwrap -->
 					</div>
-					<!-- follow -->
-				</div>
-				<!-- followwrap -->
-			</div>
-			<!-- right -->
-			</c:when>
-			<c:otherwise>
-			<div id="right">
-				<div id="followwrap">
-					<h2 class="title">
-						<i class="fa fa-users" aria-hidden="true"></i> ${userDTO.user_name }의
-						팔로워
-					</h2>
-					<hr />
-					<div id="follow"
-						style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
-						<ul>
-							<c:forEach items="${mymentorInfo}" var="mlist" begin="0">
-								<li
-									style="height: 30px; line-height: 50px; vertical-align: middle;"><a
-									href="mentor_view.do?num=${mlist.mentor_num}"
-									style="text-decoration: none;"></a> <c:choose>
-										<c:when test="${not empty mlist.mentor_image }">
-											<img src="/sms/temp/${mlist.mentor_image }" class="fimg"
-												style="margin-left: 5%; border-radius: 50%" />
-										</c:when>
-										<c:otherwise>
-											<img src="./img/userpicture.png" class="fimg"
-												style="margin-left: 5%; border-radius: 50%" />
-										</c:otherwise>
-									</c:choose> 
-									${mlist.mentor_name}&nbsp; <small>멘토</small></li>
-								<hr />
-							</c:forEach>
-						</ul>
+					<!-- right -->
+				</c:when>
+				<c:otherwise>
+					<div id="right">
+						<div id="followwrap">
+							<h2 class="title">
+								<i class="fa fa-users" aria-hidden="true"></i>
+								${userDTO.user_name }의 팔로잉
+							</h2>
+							<hr />
+							<div id="follow"
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px;padding: 10px;">
+								<ul>
+									<c:forEach items="${mymentorInfo}" var="mlist" begin="0">
+										<li
+											style="height: 30px; line-height: 50px; vertical-align: middle;"><a
+											href="mentor_view.do?num=${mlist.mentor_num}"
+											style="text-decoration: none;"></a> <c:choose>
+												<c:when test="${not empty mlist.mentor_image }">
+													<img src="/sms/temp/${mlist.mentor_image }" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+												</c:when>
+												<c:otherwise>
+													<img src="./img/userpicture.png" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+												</c:otherwise>
+											</c:choose> ${mlist.mentor_name}&nbsp; <small>멘토</small></li>
+										<hr />
+									</c:forEach>
+								</ul>
+							</div>
+							<!-- follow -->
+						</div>
+						<!-- followwrap -->
 					</div>
-					<!-- follow -->
-				</div>
-				<!-- followwrap -->
-			</div>
-			</c:otherwise>
+				</c:otherwise>
 			</c:choose>
 		</div>
 		<!-- all -->

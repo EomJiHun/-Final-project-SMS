@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.sms.dto.BestFollow;
+import com.mycompany.sms.dto.MeetingDTO;
 import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.MentorFollowDTO;
 import com.mycompany.sms.dto.UserDTO;
@@ -104,7 +105,22 @@ public class MainController {
 				mav.addObject("user", meetingservice.login_user(user_id));
 			}
 		}
-		mav.addObject("mm", meetingservice.meeting_listProcess());
+		List<MeetingDTO> membercheck = new ArrayList<MeetingDTO>();
+		
+		membercheck = meetingservice.meeting_listProcess();
+
+		for (int i = 0; i < membercheck.size(); i++) {
+			// 모집 가득참 확인
+			int max = (membercheck.get(i).getMeeting_recruitment()
+					- meetingservice.memberCheckList(membercheck.get(i).getMeeting_num()));
+			// max = 0 가득참 양수일땐 모집중
+			if (max == 0) {
+				membercheck.get(i).setMemberCheck(0);
+			} else
+				membercheck.get(i).setMemberCheck(1);
+		}
+		mav.addObject("meetingList", membercheck);
+		mav.addObject("mm", membercheck);
 		mav.addObject("mentorInfo", mList);
 		// 최근 개설모임----------------------------------------------
 		// 에세이------------------------------------------------------
@@ -174,7 +190,7 @@ public class MainController {
 			session.invalidate();
 			mav.setViewName("log");
 		}
-
+		
 		return mav;
 	}
 
@@ -241,10 +257,11 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/userInsert.do", method = RequestMethod.POST)
-	public String userInsertMethod(UserDTO dto, HttpServletRequest request, HttpSession session) {
+	public ModelAndView userInsertMethod(UserDTO dto, HttpServletRequest request, HttpSession session, ModelAndView mav) {
 		session.setAttribute("user_id", dto.getUser_id());
 		service.userInsertServiceMethod(dto);
-		return "redirect:/home.do";
+		mav.setViewName("redirect:/home.do");
+		return mav;
 	}
 
 	@RequestMapping(value = "/userUpdate.do", method = RequestMethod.POST)

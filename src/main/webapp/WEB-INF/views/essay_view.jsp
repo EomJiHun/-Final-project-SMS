@@ -121,7 +121,7 @@
 			<div class="section-row sticky-container"
 				style="padding-left: 30px; padding-right: 30px; width: 900px;">
 				<div class="main-post" style="margin-right: 30px">
-					<h3 style="margin-left: 15px; margin-right: 15px;">${essayDTO.essay_subject }</h3>
+					<h2 style="margin-left: 15px; margin-right: 15px;">${essayDTO.essay_subject }</h2>
 					<p style="text-align: right">
 						<span class="date">작성일 : ${essayDTO.essay_date }</span>
 					</p>
@@ -130,8 +130,12 @@
 						<img class="" id="img" src="/sms/temp/${essayDTO.essay_img }"
 							alt="" />
 					</p>
-					<div style="text-indent: 30px;">${essayDTO.essay_summary }</div>
+					<hr/>
+					<h4> <요약> </h4>
+					<h4><div style="text-indent: 30px;">${essayDTO.essay_summary }</div></h4>
 					<p></p>
+					<hr/>
+					<h4> <내용> </h4>
 					<div style="text-indent: 30px;">${essayDTO.essay_content }</div>
 				</div>
 				<!-- ////////////////////////뷰 화면 끝/////////////////////////////////// -->
@@ -171,9 +175,9 @@
 							<div class="media-left">
 								<c:choose>
 									<c:when test="${not empty mentorDTO.mentor_image }">
-										<img class="media-object"
-											src="/sms/temp/${mentorDTO.mentor_image}" alt=""
-											style="height: 120px">
+										<a href="mentor_view.do?num=${mentorDTO.mentor_num}" style="text-decoration: none;">
+                             				 <img class="media-object" src="/sms/temp/${mentorDTO.mentor_image}" alt="" style="height: 120px">
+                           			   </a>
 									</c:when>
 									<c:otherwise>
 										<img class="media-object"
